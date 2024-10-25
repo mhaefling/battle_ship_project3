@@ -25,7 +25,7 @@ class Cell
     end
 
     def fire_upon
-        if empty? == false
+        if !empty? 
             @ship.hit
             @fired_upon = true   
         else
@@ -37,11 +37,11 @@ class Cell
         if empty? && fired_upon? 
             @render = "M"
         elsif check_ship == true
-            empty? == false 
+            !empty? 
             @render = "S"
         elsif fired_upon? && ship.sunk? == true
             @render = "X"
-        elsif empty? == false && fired_upon? == true
+        elsif !empty? && fired_upon? == true 
             @render = "H"
         end
         @render
