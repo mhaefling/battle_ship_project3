@@ -17,4 +17,16 @@ RSpec.describe Cell do
             expect(@cell.coordinate).to eq("B4")
         end
     end
+
+    describe '#ship' do
+        it 'checks if a cell space is occupied by a ship' do
+            expect(@cell.ship).to be(nil)
+        end
+    end
+
+    describe '#empty?' do
+        it 'checks if a cell is empty' do
+            expect(@cell.empty?).to be(true)
+        end
+    end
 end
