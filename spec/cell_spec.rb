@@ -32,7 +32,7 @@ RSpec.describe Cell do
 
         it 'returns false when a ship is placed' do
             @cell.place_ship(@cruiser)
-            
+
             expect(@cell.ship).to eq(@cruiser)
             expect(@cell.empty?).to be(false)
         end       
@@ -43,6 +43,22 @@ RSpec.describe Cell do
             @cell.place_ship(@cruiser)
 
             expect(@cell.ship).to eq(@cruiser)
+        end
+    end
+
+    describe '#fired_upon?' do
+        it 'has not been fired upon yet' do
+            expect(@cell.fired_upon?).to be(false)
+        end
+    end
+
+    describe '#fire_upon' do
+        it 'decreases ships health when fired upon, and updates fired_upon to true' do
+            @cell.place_ship(@cruiser)
+            @cell.fire_upon
+
+            expect(@cell.ship.health).to eq(2)
+            expect(@cell.fired_upon?).to be(true)
         end
     end
 end
