@@ -28,6 +28,16 @@ RSpec.describe Ship do
 		it 'starts as not sunk' do
 			expect(@cruiser.sunk?).to be(false)
 		end
+
+		it 'sinks when health is 0' do
+			@cruiser.hit
+			expect(@cruiser.health).to eq(2)
+			@cruiser.hit
+			expect(@cruiser.health).to eq(1)
+			@cruiser.hit
+			expect(@cruiser.health).to eq(0)
+			expect(@cruiser.sunk?).to be(true)
+		end
 	end
 
 	describe '#hit' do
