@@ -27,4 +27,33 @@ class Board
         @cells.key?(coordinate)
     end
 
+    def valid_placement?(ship, coordinates)
+        length_count = ship.length == coordinates.count
+
+        letter_match = coordinates.each_cons(2).all? do |coordinate0, coordinate1| 
+            coordinate1[0] == coordinate0[0]
+        end
+
+        letter_sequence = coordinates.each_cons(2).all? do |coordinate0, coordinate1| 
+            coordinate1[0].ord == coordinate0[0].ord + 1
+        end
+
+        num_sequence = coordinates.each_cons(2).all? do |coordinate0, coordinate1| 
+            coordinate1[1].to_i == coordinate0[1].to_i + 1
+        end
+
+        if length_count && (letter_match && num_sequence)
+            true
+
+        elsif letter_sequence && !num_sequence 
+            true
+
+        elsif length_count && letter_sequence && num_sequence
+            false
+            
+        else
+            false
+        end
+    end
+
 end
