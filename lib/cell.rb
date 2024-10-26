@@ -36,12 +36,15 @@ class Cell
     def render(check_ship = false)
         if empty? && fired_upon? 
             @render = "M"
+
         elsif check_ship == true
             !empty? 
             @render = "S"
-        elsif fired_upon? && ship.sunk? == true
+
+        elsif fired_upon? && ship.sunk?
             @render = "X"
-        elsif !empty? && fired_upon? == true 
+            
+        elsif !empty? && fired_upon?
             @render = "H"
         end
         @render

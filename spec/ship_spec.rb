@@ -5,7 +5,7 @@ RSpec.describe Ship do
 		@cruiser = Ship.new("Cruiser", 3)
 	end
 
-  describe '#instantiate' do
+  	describe '#instantiate' do
 		it 'is a ship' do
 			expect(@cruiser).to be_a(Ship)
 		end
