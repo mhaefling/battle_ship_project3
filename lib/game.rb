@@ -32,9 +32,19 @@ class Game
         loop do
             random_cords = @computer["board"].cells.keys.sample(3).sort
             validate = @computer["board"].valid_placement?(@computer["cruiser"], random_cords)
-            # require 'pry'; binding.pry
             if validate == true
                 @computer["board"].place(@computer["cruiser"], random_cords)
+                break
+            else
+                random_cords.clear
+            end
+        end
+
+        loop do
+            random_cords = @computer["board"].cells.keys.sample(2).sort
+            validate = @computer["board"].valid_placement?(@computer["submarine"], random_cords)
+            if validate == true
+                @computer["board"].place(@computer["submarine"], random_cords)
                 break
             else
                 random_cords.clear
