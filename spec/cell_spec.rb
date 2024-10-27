@@ -70,6 +70,7 @@ RSpec.describe Cell do
         end
 
         it 'puts "M" if the cell has been fired upon and does not contain a ship' do
+            @cell_2.place_ship(@cruiser)
             @cell_1.fire_upon
 
             expect(@cell_1.render).to eq("M")
