@@ -28,6 +28,10 @@ class Board
     end
 
     def valid_placement?(ship, coordinates)
+        empty_cells = coordinates.all? do |coordinate|
+            @cells[coordinate].empty?
+        end
+
         length_count = ship.length == coordinates.count
 
         letter_match = coordinates.each_cons(2).all? do |coordinate0, coordinate1| 
@@ -42,10 +46,11 @@ class Board
             coordinate1[1].to_i == coordinate0[1].to_i + 1
         end
 
-        if length_count && (letter_match && num_sequence)
+
+        if empty_cells && length_count && (letter_match && num_sequence)
             true
 
-        elsif letter_sequence && !num_sequence 
+        elsif empty_cells && letter_sequence && !num_sequence
             true
 
         elsif length_count && letter_sequence && num_sequence
@@ -56,4 +61,9 @@ class Board
         end
     end
 
+    def place(ship, coordinates)
+        coordinates.each do |coordinate|
+            @cells[coordinate].place_ship(ship)
+        end
+    end
 end
