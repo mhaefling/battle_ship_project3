@@ -1,18 +1,25 @@
 class Game
 
-    attr_reader :player_board, :computer_board
+    attr_reader :player,
+                :computer
 
     def initialize
-        @player = {board: Board.new, cruiser: Ship.new("Cruiser", 3), submarine: Ship.new("Submarine", 2)}
-        @computer = {board: Board.new, cruiser: Ship.new("Cruiser", 3), submarine: Ship.new("Submarine", 2)}
-        require 'pry'; binding.pry
+        @player = {
+            "board" => Board.new, 
+            "cruiser" => Ship.new("Cruiser", 3), 
+            "submarine" => Ship.new("Submarine", 2)
+        }
+        @computer = {
+            "board" => Board.new, 
+            "cruiser" => Ship.new("Cruiser", 3), 
+            "submarine" => Ship.new("Submarine", 2)
+        }
     end
 
     def start_game(user_input)
         if user_input == 'p'
-            puts "Game Started."
-            @player_board
-            @computer_board
+            puts "Please wait while the other player places their ships."
+            computer_place_ships
 
         elsif user_input == 'q'
             puts "Game canceled."
@@ -21,10 +28,18 @@ class Game
         end
     end
 
-    def place_ships(ship, coordinates)
-        3.times @computer[:board].cells.keys.sample do
-        until valid_placement? == true
-            false
+    def computer_place_ships
+        loop do
+            random_cords = @computer["board"].cells.keys.sample(3).sort
+            validate = @computer["board"].valid_placement?(@computer["cruiser"], random_cords)
+            # require 'pry'; binding.pry
+            if validate == true
+                @computer["board"].place(@computer["cruiser"], random_cords)
+                break
+            else
+                random_cords.clear
+            end
         end
+        puts @computer["board"].render(true)
     end
 end
