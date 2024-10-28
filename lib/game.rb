@@ -80,4 +80,34 @@ class Game
         end
         @player["board"].place(@player["submarine"], submarine_cords_array)
     end
+
+    def display_boards
+        puts "=============COMPUTER BOARD============="
+        puts @computer["board"].render
+        puts "==============PLAYER BOARD=============="
+        puts @player["board"].render(true)
+    end
+
+    def player_shot
+        puts "Enter the coordinate for your shot: "
+        player_shot = gets.chomp
+
+        until @computer["board"].cells.include?(player_shot)     
+            puts "Please enter a valid coordinate: "
+            player_shot = gets.chomp
+            @computer["board"].cells.include?(player_shot)  
+        end
+        @computer["board"].cells[player_shot].fire_upon
+
+        if @computer["board"].cells[player_shot].render == "X"
+            puts "You have sunk my #{@computer["board"].cells[player_shot].ship.name}!"
+
+        elsif @computer["board"].cells[player_shot].render == "H"
+            puts "You're shot on #{player_shot} was a hit!"
+
+        elsif @computer["board"].cells[player_shot].render == "M"
+            puts "You're shot on #{player_shot} was a miss!"
+        end
+    end
+
 end
