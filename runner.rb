@@ -29,3 +29,22 @@ battle_ship.player_shot
 
 battle_ship.display_boards
 
+battle_ship.player_shot
+
+battle_ship.display_boards
+
+battle_ship.player_shot
+
+battle_ship.display_boards
+
+battle_ship.player_shot
+
+battle_ship.display_boards
+
+battle_ship.player_shot
+
+battle_ship.display_boards
+
+battle_ship.player_shot
+
+battle_ship.display_boards

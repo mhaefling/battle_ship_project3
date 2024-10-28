@@ -9,6 +9,7 @@ class Game
             "cruiser" => Ship.new("Cruiser", 3), 
             "submarine" => Ship.new("Submarine", 2)
         }
+        @player_shots_taken = []
         @computer = {
             "board" => Board.new, 
             "cruiser" => Ship.new("Cruiser", 3), 
@@ -82,15 +83,25 @@ class Game
     end
 
     def display_boards
+        puts " "
         puts "=============COMPUTER BOARD============="
         puts @computer["board"].render
         puts "==============PLAYER BOARD=============="
         puts @player["board"].render(true)
+        puts " "
     end
 
     def player_shot
         puts "Enter the coordinate for your shot: "
+        puts " "
         player_shot = gets.chomp
+        puts " "
+
+        until !@player_shots_taken.include?(player_shot)
+            puts "You have already fired on this cell, please choose another: "
+            player_shot = gets.chomp
+            @player_shots_taken.include?(player_shot)
+        end
 
         until @computer["board"].cells.include?(player_shot)     
             puts "Please enter a valid coordinate: "
@@ -101,13 +112,15 @@ class Game
 
         if @computer["board"].cells[player_shot].render == "X"
             puts "You have sunk my #{@computer["board"].cells[player_shot].ship.name}!"
+            @player_shots_taken << player_shot
 
         elsif @computer["board"].cells[player_shot].render == "H"
             puts "You're shot on #{player_shot} was a hit!"
+            @player_shots_taken << player_shot
 
         elsif @computer["board"].cells[player_shot].render == "M"
             puts "You're shot on #{player_shot} was a miss!"
+            @player_shots_taken << player_shot
         end
     end
-
 end
