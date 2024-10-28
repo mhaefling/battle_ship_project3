@@ -11,10 +11,16 @@ battle_ship.start_game(user_input)
 
 puts " "
 puts "Enter the squares for the Cruiser (3 spaces):"
-user_placement = gets.chomp
-battle_ship.player_place_ships(user_placement)
-if battle_ship.player_place_ships(user_placement) == false
-    puts "Those are invalid coordinates. Please try again:"
-    user_placement = gets.chomp
-    battle_ship.player_place_ships(user_placement)
-end
+
+user_cruiser_placement = gets.chomp
+battle_ship.player_place_cruiser(user_cruiser_placement)
+
+puts " "
+puts "You have placed your Cruiser."
+puts " "
+puts "Now enter the squares for the Submarine (2 spaces): "
+
+user_submarine_placement = gets.chomp
+battle_ship.player_place_submarine(user_submarine_placement)
+require 'pry'; binding.pry
+
