@@ -46,15 +46,16 @@ class Board
             coordinate1[1].to_i == coordinate0[1].to_i + 1
         end
 
+        num_match = coordinates.each_cons(2).all? do |coordinate0, coordinate1|
+            coordinate1[1].to_i == coordinate0[1].to_i
+        end
+
 
         if empty_cells && length_count && (letter_match && num_sequence)
             true
 
-        elsif empty_cells && letter_sequence && !num_sequence
+        elsif empty_cells && letter_sequence && num_match
             true
-
-        elsif length_count && letter_sequence && num_sequence
-            false
             
         else
             false
