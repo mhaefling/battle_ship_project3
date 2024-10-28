@@ -22,5 +22,10 @@ puts "Now enter the squares for the Submarine (2 spaces): "
 
 user_submarine_placement = gets.chomp
 battle_ship.player_place_submarine(user_submarine_placement)
-require 'pry'; binding.pry
+
+battle_ship.display_boards
+
+battle_ship.player_shot
+
+battle_ship.display_boards
 
