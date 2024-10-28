@@ -57,15 +57,27 @@ class Game
         end
     end
 
-    def player_place_ships(user_placement)
-        player_cords = user_placement.split(" ")
-        validate = @player["board"].valid_placement?(@player["cruiser"], player_cords)
-        if validate == true
-            @player["board"].place(@player["cruiser"], player_cords)
-            
-        else
-            player_cords.clear
-            false
+    def player_place_cruiser(user_cruiser_placement)
+        cruiser_cords_array = user_cruiser_placement.split(" ")
+
+        until @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array)
+            puts "Those are invalid coordinates. Please try again: "
+            user_cruiser_placement = gets.chomp
+            cruiser_cords_array = user_cruiser_placement.split(" ")
+            @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array)
         end
+        @player["board"].place(@player["cruiser"], cruiser_cords_array)
+    end
+
+    def player_place_submarine(user_submarine_placement)
+        submarine_cords_array = user_submarine_placement.split(" ")
+
+        until @player["board"].valid_placement?(@player["submarine"], submarine_cords_array)
+            puts "Those are invalid coordinates. Please try again: "
+            user_submarine_placement = gets.chomp
+            submarine_cords_array = user_submarine_placement.split(" ")
+            @player["board"].valid_placement?(@player["submarine"], submarine_cords_array)
+        end
+        @player["board"].place(@player["submarine"], submarine_cords_array)
     end
 end
