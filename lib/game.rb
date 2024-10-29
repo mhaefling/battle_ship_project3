@@ -30,8 +30,11 @@ class Game
 
         elsif user_input == 'q'
             puts "Game canceled."
-
-        else puts "Invalid input."
+            exit 
+            
+        else 
+            puts "Invalid input."
+            load 'runner.rb'
         end
     end
 
