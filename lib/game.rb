@@ -9,15 +9,14 @@ class Game
             "cruiser" => Ship.new("Cruiser", 3), 
             "submarine" => Ship.new("Submarine", 2)
         }
-        @player_shots_taken = []
         @computer = {
             "board" => Board.new, 
             "cruiser" => Ship.new("Cruiser", 3), 
             "submarine" => Ship.new("Submarine", 2)
         }
-        @computer_shots_taken = []
     end
 
+    # We intentionally did not write a test for the start_game method because we cannot test for user input.
     def start_game(user_input)
         if user_input == 'p'
             puts "Please wait while the computer places its ships."
@@ -95,16 +94,17 @@ class Game
         puts " "
     end
 
+    # We intentionally did not write a test for the player_shot method because we cannot test for user input.
     def player_shot
         puts "Enter the coordinate for your shot: "
         puts " "
         player_shot = gets.chomp
         puts " "
 
-        until !@player_shots_taken.include?(player_shot)
+        until !@computer["board"].cells[player_shot].fired_upon?
             puts "You have already fired on this cell, please choose another: "
             player_shot = gets.chomp
-            @player_shots_taken.include?(player_shot)
+            @computer["board"].cells[player_shot].fired_upon?
         end
 
         until @computer["board"].valid_coordinate?(player_shot)     
@@ -116,40 +116,39 @@ class Game
 
         if @computer["board"].cells[player_shot].render == "X"
             puts "You have sunk my #{@computer["board"].cells[player_shot].ship.name}!"
-            @player_shots_taken << player_shot
+            @computer["board"].cells[player_shot].fired_upon?
 
         elsif @computer["board"].cells[player_shot].render == "H"
-            puts "You're shot on #{player_shot} was a hit!"
-            @player_shots_taken << player_shot
+            puts "Your shot on #{player_shot} was a hit!"
+            @computer["board"].cells[player_shot].fired_upon?
 
         elsif @computer["board"].cells[player_shot].render == "M"
-            puts "You're shot on #{player_shot} was a miss!"
-            @player_shots_taken << player_shot
+            puts "Your shot on #{player_shot} was a miss!"
+            @computer["board"].cells[player_shot].fired_upon?
         end
     end
 
     def computer_shot
-
         computer_shot = @player["board"].cells.keys.sample
 
-        until !@computer_shots_taken.include?(computer_shot)
+        until !@player["board"].cells[computer_shot].fired_upon?
             puts "Computer has already fired on this cell, it will choose another."
             computer_shot = @player["board"].cells.keys.sample
-            @computer_shots_taken.include?(computer_shot)
+            @player["board"].cells[computer_shot].fired_upon?
         end
         @player["board"].cells[computer_shot].fire_upon
 
         if @player["board"].cells[computer_shot].render == "X"
             puts "I have sunk your #{@player["board"].cells[computer_shot].ship.name}!"
-            @computer_shots_taken << computer_shot
+            @player["board"].cells[computer_shot].fired_upon?
 
         elsif @player["board"].cells[computer_shot].render == "H"
             puts "My shot on #{computer_shot} was a hit!"
-            @computer_shots_taken << computer_shot
+            @player["board"].cells[computer_shot].fired_upon?
 
         elsif @player["board"].cells[computer_shot].render == "M"
             puts "My shot on #{computer_shot} was a miss!"
-            @computer_shots_taken << computer_shot
+            @player["board"].cells[computer_shot].fired_upon?
         end
     end
 
