@@ -15,6 +15,7 @@ class Game
             "cruiser" => Ship.new("Cruiser", 3), 
             "submarine" => Ship.new("Submarine", 2)
         }
+        @computer_shots_taken = []
     end
 
     def start_game(user_input)
@@ -121,6 +122,41 @@ class Game
         elsif @computer["board"].cells[player_shot].render == "M"
             puts "You're shot on #{player_shot} was a miss!"
             @player_shots_taken << player_shot
+        end
+    end
+
+    def computer_shot
+
+        computer_shot = @player["board"].cells.keys.sample
+
+        until !@computer_shots_taken.include?(computer_shot)
+            puts "Computer has already fired on this cell, it will choose another."
+            computer_shot = @player["board"].cells.keys.sample
+            @computer_shots_taken.include?(computer_shot)
+        end
+        @player["board"].cells[computer_shot].fire_upon
+
+        if @player["board"].cells[computer_shot].render == "X"
+            puts "I have sunk your #{@player["board"].cells[computer_shot].ship.name}!"
+            @computer_shots_taken << computer_shot
+
+        elsif @player["board"].cells[computer_shot].render == "H"
+            puts "My shot on #{computer_shot} was a hit!"
+            @computer_shots_taken << computer_shot
+
+        elsif @player["board"].cells[computer_shot].render == "M"
+            puts "My shot on #{computer_shot} was a miss!"
+            @computer_shots_taken << computer_shot
+        end
+    end
+
+    def winner
+        
+        if @player["cruiser"].sunk? && @player["submarine"].sunk?
+            puts "I WON!"
+
+        elsif @computer["cruiser"].sunk? && @computer["submarine"].sunk?
+            puts "YOU WON!"
         end
     end
 end
