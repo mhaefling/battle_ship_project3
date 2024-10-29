@@ -77,7 +77,7 @@ class Game
     def player_place_submarine(user_submarine_placement)
         submarine_cords_array = user_submarine_placement.split(" ")
 
-        until @player["board"].valid_placement?(@player["submarine"], submarine_cords_array)
+        until @player["board"].valid_placement?(@player["submarine"], submarine_cords_array) && cruiser_cords_array.count == 3
             puts "Those are invalid coordinates. Please try again: "
             user_submarine_placement = gets.chomp
             submarine_cords_array = user_submarine_placement.split(" ")
