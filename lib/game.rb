@@ -65,7 +65,7 @@ class Game
     def player_place_cruiser(user_cruiser_placement)
         cruiser_cords_array = user_cruiser_placement.split(" ")
 
-        until @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array)
+        until @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array) && cruiser_cords_array.count == 3
             puts "Those are invalid coordinates. Please try again: "
             user_cruiser_placement = gets.chomp
             cruiser_cords_array = user_cruiser_placement.split(" ")
@@ -77,7 +77,7 @@ class Game
     def player_place_submarine(user_submarine_placement)
         submarine_cords_array = user_submarine_placement.split(" ")
 
-        until @player["board"].valid_placement?(@player["submarine"], submarine_cords_array)
+        until @player["board"].valid_placement?(@player["submarine"], submarine_cords_array) && cruiser_cords_array.count == 3
             puts "Those are invalid coordinates. Please try again: "
             user_submarine_placement = gets.chomp
             submarine_cords_array = user_submarine_placement.split(" ")
@@ -107,10 +107,10 @@ class Game
             @player_shots_taken.include?(player_shot)
         end
 
-        until @computer["board"].cells.include?(player_shot)     
+        until @computer["board"].valid_coordinate?(player_shot)     
             puts "Please enter a valid coordinate: "
             player_shot = gets.chomp
-            @computer["board"].cells.include?(player_shot)  
+            @computer["board"].valid_coordinate?(player_shot)  
         end
         @computer["board"].cells[player_shot].fire_upon
 

@@ -29,6 +29,7 @@ puts "You have placed your Submarine."
 until (battle_ship.computer["cruiser"].sunk? && battle_ship.computer["submarine"].sunk?) || (battle_ship.player["cruiser"].sunk? && battle_ship.player["submarine"].sunk?)
     battle_ship.display_boards
     battle_ship.player_shot
+    battle_ship.display_boards
     battle_ship.computer_shot
 end
 battle_ship.display_boards
