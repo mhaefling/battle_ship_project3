@@ -64,11 +64,11 @@ class Game
     def player_place_cruiser(user_cruiser_placement)
         cruiser_cords_array = user_cruiser_placement.split(" ")
 
-        until @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array) && cruiser_cords_array.count == 3
+        until cruiser_cords_array.all? { |cord| @player["board"].valid_coordinate?(cord) } && @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array) && cruiser_cords_array.count == 3
             puts "Those are invalid coordinates. Please try again: "
             user_cruiser_placement = gets.chomp
             cruiser_cords_array = user_cruiser_placement.split(" ")
-            @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array)
+            cruiser_cords_array.all? { |cord| @player["board"].valid_coordinate?(cord) } && @player["board"].valid_placement?(@player["cruiser"], cruiser_cords_array) && cruiser_cords_array.count == 3
         end
         @player["board"].place(@player["cruiser"], cruiser_cords_array)
     end
@@ -76,11 +76,11 @@ class Game
     def player_place_submarine(user_submarine_placement)
         submarine_cords_array = user_submarine_placement.split(" ")
 
-        until @player["board"].valid_placement?(@player["submarine"], submarine_cords_array) && submarine_cords_array.count == 2
+        until submarine_cords_array.all? { |cord| @player["board"].valid_coordinate?(cord) } && @player["board"].valid_placement?(@player["submarine"], submarine_cords_array) && submarine_cords_array.count == 2
             puts "Those are invalid coordinates. Please try again: "
             user_submarine_placement = gets.chomp
             submarine_cords_array = user_submarine_placement.split(" ")
-            @player["board"].valid_placement?(@player["submarine"], submarine_cords_array)
+            submarine_cords_array.all? { |cord| @player["board"].valid_coordinate?(cord) } && @player["board"].valid_placement?(@player["submarine"], submarine_cords_array) && submarine_cords_array.count == 2
         end
         @player["board"].place(@player["submarine"], submarine_cords_array)
     end
