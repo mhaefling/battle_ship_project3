@@ -98,21 +98,21 @@ class Game
     def player_shot
         puts "Enter the coordinate for your shot: "
         puts " "
-        player_shot = gets.chomp
+        player_shot = gets.chomp.upcase
         puts " "
-
-        until @computer["board"].valid_coordinate?(player_shot)     
-            puts "Please enter a valid coordinate: "
-            player_shot = gets.chomp
-            @computer["board"].valid_coordinate?(player_shot)  
-        end
-        @computer["board"].cells[player_shot].fire_upon
         
         until !@computer["board"].cells[player_shot].fired_upon?
             puts "You have already fired on this cell, please choose another: "
-            player_shot = gets.chomp
+            player_shot = gets.chomp.upcase
             @computer["board"].cells[player_shot].fired_upon?
         end
+
+        until @computer["board"].valid_coordinate?(player_shot)     
+            puts "Please enter a valid coordinate: "
+            player_shot = gets.chomp.upcase
+            @computer["board"].valid_coordinate?(player_shot)  
+        end
+        @computer["board"].cells[player_shot].fire_upon
 
         if @computer["board"].cells[player_shot].render == "X"
             puts "You have sunk my #{@computer["board"].cells[player_shot].ship.name}!"
