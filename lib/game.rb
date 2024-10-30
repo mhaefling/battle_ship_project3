@@ -101,18 +101,18 @@ class Game
         player_shot = gets.chomp
         puts " "
 
-        until !@computer["board"].cells[player_shot].fired_upon?
-            puts "You have already fired on this cell, please choose another: "
-            player_shot = gets.chomp
-            @computer["board"].cells[player_shot].fired_upon?
-        end
-
         until @computer["board"].valid_coordinate?(player_shot)     
             puts "Please enter a valid coordinate: "
             player_shot = gets.chomp
             @computer["board"].valid_coordinate?(player_shot)  
         end
         @computer["board"].cells[player_shot].fire_upon
+        
+        until !@computer["board"].cells[player_shot].fired_upon?
+            puts "You have already fired on this cell, please choose another: "
+            player_shot = gets.chomp
+            @computer["board"].cells[player_shot].fired_upon?
+        end
 
         if @computer["board"].cells[player_shot].render == "X"
             puts "You have sunk my #{@computer["board"].cells[player_shot].ship.name}!"
