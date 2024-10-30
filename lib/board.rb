@@ -54,7 +54,7 @@ class Board
         if empty_cells && length_count && (letter_match && num_sequence)
             true
 
-        elsif empty_cells && letter_sequence && num_match
+        elsif empty_cells && length_count && (letter_sequence && num_match)
             true
             
         else
